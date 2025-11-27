@@ -4,7 +4,7 @@
   "description": "Bot de WhatsApp Business con Vercel",
   "main": "api/webhook.js",
   "scripts": {
-    "dev": "vercel dev",
+    "vercel:dev": "vercel dev",
     "deploy": "vercel --prod"
   },
   "dependencies": {
