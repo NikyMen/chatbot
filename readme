@@ -1,0 +1,142 @@
+Bot de WhatsApp Business con Vercel
+Bot automatizado para responder mensajes de WhatsApp Business desplegado en Vercel.
+📋 Requisitos Previos
+
+Cuenta de Meta Business: https://business.facebook.com/
+Aplicación en Meta for Developers: https://developers.facebook.com/
+Cuenta en Vercel: https://vercel.com/
+Node.js instalado (v18 o superior)
+
+🚀 Configuración Paso a Paso
+1. Configurar WhatsApp Business API
+
+Ve a https://developers.facebook.com/
+Crea una aplicación nueva o usa una existente
+Agrega el producto "WhatsApp"
+En la configuración de WhatsApp:
+
+Copia tu Token de Acceso (WHATSAPP_TOKEN)
+Copia tu Phone Number ID (PHONE_NUMBER_ID)
+Agrega un número de prueba
+
+
+
+2. Crear Token de Verificación
+Crea un token único y seguro para verificar el webhook:
+bash# Ejemplo de token (usa uno único y seguro)
+VERIFY_TOKEN=mi_token_secreto_12345
+3. Desplegar en Vercel
+Opción A: Deploy con GitHub
+
+Sube el código a GitHub
+Ve a https://vercel.com/
+Importa tu repositorio de GitHub
+Configura las variables de entorno en Vercel:
+
+VERIFY_TOKEN: tu token de verificación
+WHATSAPP_TOKEN: token de acceso de WhatsApp
+PHONE_NUMBER_ID: ID del número de teléfono
+
+
+
+Opción B: Deploy con CLI
+bash# Instalar Vercel CLI
+npm i -g vercel
+
+# Iniciar sesión
+vercel login
+
+# Desplegar
+vercel
+
+# Configurar variables de entorno
+vercel env add VERIFY_TOKEN
+vercel env add WHATSAPP_TOKEN
+vercel env add PHONE_NUMBER_ID
+
+# Deploy a producción
+vercel --prod
+4. Configurar Webhook en Meta
+
+Copia tu URL de Vercel: https://tu-proyecto.vercel.app/webhook
+En Meta for Developers > WhatsApp > Configuración
+En "Webhook", haz clic en "Configurar"
+Pega tu URL del webhook
+Pega tu VERIFY_TOKEN
+Haz clic en "Verificar y guardar"
+Suscríbete al campo "messages"
+
+📁 Estructura del Proyecto
+whatsapp-bot-vercel/
+├── api/
+│   └── webhook.js       # Endpoint principal del bot
+├── package.json         # Dependencias
+├── vercel.json         # Configuración de Vercel
+└── README.md           # Este archivo
+🤖 Personalizar Respuestas
+Edita la función generateResponse() en api/webhook.js:
+javascriptfunction generateResponse(messageText) {
+  const text = messageText?.toLowerCase() || '';
+  
+  // Agrega tus propias respuestas aquí
+  if (text.includes('tu_palabra_clave')) {
+    return 'Tu respuesta personalizada';
+  }
+  
+  return 'Respuesta por defecto';
+}
+💬 Comandos que Responde el Bot
+
+Saludos: "hola", "buenos días", "buenas tardes"
+Precios: "precio", "costo", "cuanto"
+Horarios: "horario", "abierto"
+Ubicación: "ubicación", "dirección", "donde"
+Menú: "ayuda", "menu", "opciones"
+
+🔍 Testing
+Para probar tu bot:
+
+Envía un mensaje de WhatsApp al número configurado
+El bot responderá automáticamente
+Revisa los logs en Vercel Dashboard
+
+📊 Ver Logs
+bash# Ver logs en tiempo real
+vercel logs tu-proyecto.vercel.app --follow
+🛠️ Troubleshooting
+Error: Webhook no verifica
+
+Verifica que VERIFY_TOKEN sea exactamente igual en Vercel y Meta
+Asegúrate que la URL termina en /webhook
+
+Error: No recibe mensajes
+
+Verifica que estés suscrito al campo "messages" en Meta
+Revisa los logs en Vercel para ver errores
+
+Error: No envía mensajes
+
+Verifica que WHATSAPP_TOKEN esté correcto
+Asegúrate que el token no haya expirado
+Verifica PHONE_NUMBER_ID
+
+🚀 Próximos Pasos
+
+Agregar botones interactivos
+Implementar respuestas con imágenes
+Conectar con una base de datos
+Agregar inteligencia artificial (Claude API)
+Implementar sistema de tickets
+
+📝 Notas
+
+Los tokens de acceso de WhatsApp expiran cada 90 días
+El número de prueba tiene limitaciones de mensajes
+Para producción, necesitas un número verificado de WhatsApp Business
+
+🆘 Soporte
+Para más información:
+
+WhatsApp Business API: https://developers.facebook.com/docs/whatsapp
+Vercel Docs: https://vercel.com/docs
+Meta for Developers: https://developers.facebook.com/
